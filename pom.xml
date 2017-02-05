@@ -18,7 +18,10 @@
 		<module>kreese-service-message</module>
 		<module>kreese-web-account</module>
 		<module>kreese-web-message</module>
-	</modules>
+		<module>kreese-service-order-api</module>
+		<module>kreese-service-order</module>
+    <module>kreese-web-order</module>
+  </modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,6 +30,7 @@
 		<kreese-core.version>0.0.1-SNAPSHOT</kreese-core.version>
 		<kreese-service-account-api.version>0.0.1-SNAPSHOT</kreese-service-account-api.version>
 		<kreese-service-message-api.version>0.0.1-SNAPSHOT</kreese-service-message-api.version>
+		<kreese-service-order-api.version>0.0.1-SNAPSHOT</kreese-service-order-api.version>
 		<spring-boot-starter.version>1.4.3.RELEASE</spring-boot-starter.version>
 		<dubbo.version>2.5.3</dubbo.version>
 		<zookeeper.version>3.4.9</zookeeper.version>
@@ -57,6 +61,13 @@
 				<groupId>tech.kreese</groupId>
 				<artifactId>kreese-service-message-api</artifactId>
 				<version>${kreese-service-message-api.version}</version>
+			</dependency>
+
+			<!-- tech.kreese/kreese-service-order-api -->
+			<dependency>
+				<groupId>tech.kreese</groupId>
+				<artifactId>kreese-service-order-api</artifactId>
+				<version>${kreese-service-order-api.version}</version>
 			</dependency>
 
 			<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
