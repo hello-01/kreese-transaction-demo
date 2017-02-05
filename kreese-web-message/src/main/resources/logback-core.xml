@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="1 seconds" debug="false">
+
+	<!-- 项目名称 -->
+	<property name="APP_NAME" value="kreese-core" />
+	<contextName>${APP_NAME}</contextName>
+
+	<!-- 日志文件输出格式 -->
+	<property name="LOG_PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n" />
+
+	<!-- 开发环境日志路径 -->
+	<property name="DEV_FILE_PATH" value="D:/workspace/logs/${APP_NAME}" />
+	<!-- 测试环境日志路径 -->
+	<property name="TEST_FILE_PATH" value="/data/logs/${APP_NAME}" />
+	<!-- 生产环境日志路径 -->
+	<property name="PROD_FILE_PATH" value="/data/logs/${APP_NAME}" />
+
+	<!-- 开发环境日志配置 -->
+	<springProfile name="dev">
+		<!-- 输出到控制台 -->
+		<appender name="DEV_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+			<encoder>
+				<pattern>${LOG_PATTERN}</pattern>
+			</encoder>
+		</appender>
+		<!-- 输出到文件 -->
+		<appender name="DEV_FILE" class="ch.qos.logback.core.FileAppender">
+			<file>${DEV_FILE_PATH}/debug.log</file>
+			<append>false</append>
+			<encoder>
+				<pattern>${LOG_PATTERN}</pattern>
+			</encoder>
+		</appender>
+		<!-- 日志组别 -->
+		<root level="info">
+			<appender-ref ref="DEV_CONSOLE" />
+			<appender-ref ref="DEV_FILE" />
+		</root>
+	</springProfile>
+
+	<!-- 测试环境日志配置 -->
+	<springProfile name="test">
+		<!-- 输出到文件（单位：每天一个日志文件） -->
+		<appender name="TEST_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<!-- 文件名称 -->
+				<fileNamePattern>${TEST_FILE_PATH}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+				<!-- 文件最大保存历史数量（单位：天） -->
+				<MaxHistory>100</MaxHistory>
+			</rollingPolicy>
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<pattern>${LOG_PATTERN}</pattern>
+			</layout>
+		</appender>
+		<!-- 日志组别 -->
+		<root level="info">
+			<appender-ref ref="TEST_FILE" />
+		</root>
+	</springProfile>
+
+	<!-- 生产环境日志配置 -->
+	<springProfile name="prod">
+		<!-- 输出到文件（单位：每天一个日志文件） -->
+		<appender name="PROD_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${PRO_FILE_PATH}</file>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<fileNamePattern>${PROD_FILE_PATH}/warn.%d{yyyy-MM-dd}.log</fileNamePattern>
+				<MaxHistory>100</MaxHistory>
+			</rollingPolicy>
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<pattern>${LOG_PATTERN}</pattern>
+			</layout>
+		</appender>
+		<!-- 日志组别 -->
+		<root level="warn">
+			<appender-ref ref="PROD_FILE" />
+		</root>
+	</springProfile>
+
+</configuration>
